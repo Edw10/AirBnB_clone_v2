@@ -15,6 +15,7 @@ def teardown_appcontext(exc):
     """teardown for what"""
     storage.close()
 
+
 @app.errorhandler(404)
 def not_found(error):
     """seems like you're in the wrong place 404"""
