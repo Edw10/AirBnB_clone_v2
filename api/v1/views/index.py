@@ -20,7 +20,7 @@ def status():
 
 @app_views.route('/stats', methods=["GET"])
 def get_stats():
-    """"""
+    """Return stats """
     dic = {
         "amenities": storage.count(Amenity),
         "cities": storage.count(City),
