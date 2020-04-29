@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """the API"""
 from os import getenv
 from flask import Flask
