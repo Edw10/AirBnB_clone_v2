@@ -2,19 +2,19 @@
 """the state view"""
 
 from flask import jsonify, request
-from api.v1.views  import app_views
+from api.v1.views import app_views
 import models
 from models import storage
 from models.state import State
 
 
 @app_views.route('/states', strict_slashes=False, methods=['GET'])
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])    
+@app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
 def get_states(state_id=None):
     if state_id:
         the_state = storage.get(State, state_id)
         if the_state:
-           return (jsonify(the_state.to_dict()))
+            return (jsonify(the_state.to_dict()))
         abort(404)
     else:
         l_state = storage.all(State).values()
@@ -24,7 +24,8 @@ def get_states(state_id=None):
         return (jsonify(lj_state))
 
 
-@app_views.route('/states/<state_id>', strict_slashes=False, methods=['DELETE'])
+@app_views.route('/states/<state_id>', strict_slashes=False,
+                 methods=['DELETE'])
 def del_states(state_id):
     the_state = storage.get(State, state_id)
     if the_state:
@@ -32,7 +33,7 @@ def del_states(state_id):
         storage.save()
         return(jsonify({}), 200)
     abort(404)
-    
+
 
 @app_views.route('/states', strict_slashes=False, methods=['POST'])
 def post_states():
@@ -43,9 +44,9 @@ def post_states():
             new_state.save()
             return(jsonify(new_state.to_dict()), 201)
         else:
-            return(jsonify(message = "Missing name"), 400)
+            return(jsonify(error="Missing name"), 400)
     else:
-        return(jsonify(message = "Not a JSON"), 400)
+        return(jsonify(error="Not a JSON"), 400)
 
 
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['PUT'])
@@ -67,4 +68,4 @@ def put_states(state_id):
         else:
             abort(404)
     else:
-        return(jsonify(message = "Not a JSON"), 400)
+        return(jsonify(error="Not a JSON"), 400)
