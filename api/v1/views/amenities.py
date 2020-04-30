@@ -52,7 +52,7 @@ def post_amenities():
 
 @app_views.route('/amenities/<amenity_id>',
                  strict_slashes=False, methods=['PUT'])
-def put_amenities(state_id):
+def put_amenities(amenity_id):
     srjson = request.get_json()
     if srjson:
         if "id" in srjson:
@@ -66,7 +66,7 @@ def put_amenities(state_id):
             for key, value in srjson.items():
                 setattr(the_amenity, key, value)
             the_amenity.save()
-            return(jsonify(the_state.to_dict()), 200)
+            return(jsonify(the_amenity.to_dict()), 200)
         else:
             abort(404)
     else:
