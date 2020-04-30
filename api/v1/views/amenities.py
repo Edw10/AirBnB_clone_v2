@@ -8,8 +8,9 @@ from models import storage
 from models.amenity import Amenity
 
 
-@app_views.route('/aminities', strict_slashes=False, methods=['GET'])
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=['GET'])
+@app_views.route('/amenities', strict_slashes=False, methods=['GET'])
+@app_views.route('/amenities/<amenity_id>',
+                 strict_slashes=False, methods=['GET'])
 def get_amenities(amenity_id=None):
     if amenity_id:
         the_amenity = storage.get(Amenity, amenity_id)
@@ -24,7 +25,7 @@ def get_amenities(amenity_id=None):
         return (jsonify(lj_amenity))
 
 
-@app_views.route('/aminities/<amenity_id>', strict_slashes=False,
+@app_views.route('/amenities/<amenity_id>', strict_slashes=False,
                  methods=['DELETE'])
 def del_amenities(amenity_id):
     the_amenity = storage.get(Amenity, amenity_id)
@@ -49,7 +50,8 @@ def post_amenities():
         return(jsonify(error="Not a JSON"), 400)
 
 
-@app_views.route('/amenities/<amenity_id>', strict_slashes=False, methods=['PUT'])
+@app_views.route('/amenities/<amenity_id>',
+                 strict_slashes=False, methods=['PUT'])
 def put_amenities(state_id):
     srjson = request.get_json()
     if srjson:
